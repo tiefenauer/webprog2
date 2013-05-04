@@ -1,0 +1,72 @@
+
+<style>
+	table {
+		border: 2px solid #000000;
+		width: 100%;
+	}
+	th {
+		border-bottom: 1px solid #000000;
+		background-color: #EAEAEA;
+		color: #555555;
+	}
+	th.id {
+		width: 5%;
+	}
+	th.desc{
+		width: 60%;
+	}
+	th.qty{
+		width: 10%;
+	}
+	th.price{
+		width: 10%;
+	}
+	th.total{
+		width: 15%;
+	}
+	table td.desc h2 {
+		font-size: 12px;
+		font-weight: bold;
+	}
+	table td.desc p{
+		font-size: 10px;
+	}
+	.cart_line_odd{
+		background-color: #FFFFFF;
+	}
+	.cart_line_even{
+		background-color: #F9F9F9;
+	}
+	
+</style>
+<% if notice %>
+<p id="notice"><%= notice %></p>
+<% end %>
+
+<h2>Warenkorb</h2>
+<table>
+	<tr>
+		<th class="id">id</th>
+		<th class="desc">Bezeichnung</th>
+		<th class="qty">Anzahl</th>
+		<th class="price">Einzelpreis</th>
+		<th class="total">Total</th>
+	</tr>
+	<% @cart.line_items.each do |item| %>
+	<tr class="<%= cycle('cart_line_odd', 'cart_line_even') %>" >
+		<td><%= item.product.id %></td>
+		<td class="desc">
+			<h2><%= item.product.title %></h2>
+			<p><%= truncate(strip_tags(item.product.description), length: 100) %></p>
+		</td>
+		<td>tbd</td>
+		<td><%= item.product.price %></td>
+		<td>tbd</td>
+	</tr>
+	<% end %>
+	
+</table>
+	
+</ul>
+<%= link_to 'Edit', edit_cart_path(@cart) %> |
+<%= link_to 'Back', carts_path %>
