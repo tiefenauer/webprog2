@@ -31,16 +31,19 @@
 	table td.desc p{
 		font-size: 10px;
 	}
-	.cart_line_odd{
+	table tr.total{
+		font-weight: bold;
+	}
+	table tr.cart_line_odd{
 		background-color: #FFFFFF;
 	}
-	.cart_line_even{
+	table tr.cart_line_even{
 		background-color: #F9F9F9;
 	}
 	
 </style>
 <% if notice %>
-<p id="notice"><%= notice %></p>
+	<p id="notice"><%= notice %></p>
 <% end %>
 
 <h2>Warenkorb</h2>
@@ -59,14 +62,17 @@
 			<h2><%= item.product.title %></h2>
 			<p><%= truncate(strip_tags(item.product.description), length: 100) %></p>
 		</td>
-		<td>tbd</td>
-		<td><%= item.product.price %></td>
-		<td>tbd</td>
+		<td><%= item.quantity %></td>
+		<td><%= number_to_currency(item.product.price, :unit => 'CHF ') %></td>
+		<td><%= number_to_currency(item.total_price, :unit => 'CHF ')%></td>
 	</tr>
 	<% end %>
-	
+	<tr class="total">
+		<td colspan="4" style="text-align: right">Total</td>
+		<td><%= number_to_currency(@cart.total_price, :unit => 'CHF ') %></td>
+	</tr>
 </table>
 	
-</ul>
+<%= button_to 'Korb leeren', @cart, method: :delete, confirm: 'Sind Sie sicher?'%>
 <%= link_to 'Edit', edit_cart_path(@cart) %> |
 <%= link_to 'Back', carts_path %>
