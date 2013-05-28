@@ -1,0 +1,68 @@
+
+<style>
+	table {
+		background: transparent;
+		border: 2px solid #000000;
+		width: 100%;
+	}
+	th {
+		border-bottom: 1px solid #000000;
+		background-color: #EAEAEA;
+		color: #555555;
+	}
+	th.id {
+		width: 5%;
+	}
+	th.desc{
+		width: 60%;
+	}
+	th.qty{
+		width: 10%;
+	}
+	th.price{
+		width: 10%;
+	}
+	th.total{
+		width: 15%;
+	}
+	table td.desc h2 {
+		font-size: 12px;
+		font-weight: bold;
+	}
+	table td.desc p{
+		font-size: 10px;
+	}
+	table tr.total{
+		font-weight: bold;
+	}
+	table tr.cart_line_odd{
+		background-color: rgba(255, 255, 255, .5);
+	}
+	table tr.cart_line_even{
+		background-color: rgba(255, 255, 255, 0);
+	}
+	
+</style>
+<% if notice %>
+	<p id="notice"><%= notice %></p>
+<% end %>
+
+<h3>Warenkorb</h3>
+<table>
+	<tr>
+		<th class="id">id</th>
+		<th class="desc">Bezeichnung</th>
+		<th class="qty">Anzahl</th>
+		<th class="price">Einzelpreis</th>
+		<th class="total">Total</th>
+	</tr>
+	<%= render @cart.line_items %>
+	<tr class="total">
+		<td colspan="4" style="text-align: right">Total</td>
+		<td><%= number_to_currency(@cart.total_price, :unit => 'CHF ') %></td>
+	</tr>
+</table>
+	
+<%= button_to 'Korb leeren', @cart, method: :delete, confirm: 'Sind Sie sicher?'%>
+<%= link_to 'Edit', edit_cart_path(@cart) %> |
+<%= link_to 'Back', carts_path %>

@@ -1,0 +1,16 @@
+<tr class="<%= cycle('cart_line_odd', 'cart_line_even') %>" 
+	<% if line_item == @current_item %>
+		id="current_item"
+	<% end %>
+	>
+	<td><%= line_item.product.id %></td>
+	<td class="desc">
+		<h2><%= line_item.product.title %></h2>
+		<% if false %>
+		<p><%= truncate(strip_tags(line_item.product.description), length: 100) %></p>
+		<% end%>
+	</td>
+	<td><%= line_item.quantity %></td>
+	<td><%= number_to_currency(line_item.product.price, :unit => 'CHF ') %></td>
+	<td><%= number_to_currency(line_item.total_price, :unit => 'CHF ')%></td>
+</tr>
